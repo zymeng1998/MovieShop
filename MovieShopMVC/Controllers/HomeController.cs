@@ -24,7 +24,7 @@ namespace MovieShopMVC.Controllers
             // ViewBag and ViewData 
             
             ViewBag.PageTitle = "Top Revenue Movies";
-
+            ViewData["xyz"] = "this is a view data";
             return View(movieCards);
         }
         // https://localhost/home/privacy
