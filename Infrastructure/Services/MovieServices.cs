@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Models;
+using ApplicationCore.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class MovieServices
+    public class MovieServices : IMovieServices
     {
         public List<MovieCardResponseModel> GetTop30RevenueMovies()
         {
@@ -15,11 +16,11 @@ namespace Infrastructure.Services
 
             var movieCards = new List<MovieCardResponseModel>()
             {
-                new MovieCardResponseModel { Id = 1, Title = "Inception", 
+                new MovieCardResponseModel { Id = 1, Title = "Inception",
                     PosterUrl = "https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-                new MovieCardResponseModel { Id = 2, Title = "Interstellar", 
+                new MovieCardResponseModel { Id = 2, Title = "Interstellar",
                     PosterUrl = "https://image.tmdb.org/t/p/w342//gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"}
-    };
+            };
             return movieCards;
         }
     }

@@ -8,21 +8,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Models;
 using Infrastructure.Services;
-
+using ApplicationCore.ServiceInterfaces;
 namespace MovieShopMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private IMovieServices _movieServices;
+
+        // Constructor Injection
+        // Method Injection
+        //
+
+
+        public HomeController(IMovieServices movieServices)
+        {
+            _movieServices = movieServices;
+        }
         //routing 
         [HttpGet]
+
         public IActionResult Index()
         {
-            //
-            MovieServices service = new MovieServices();
-            var movieCards = service.GetTop30RevenueMovies();
+
+            var movieCards = _movieServices.GetTop30RevenueMovies();
             // passing data from controller to view, we can use strongly typed models
             // ViewBag and ViewData 
-            
+
             ViewBag.PageTitle = "Top Revenue Movies";
             ViewData["xyz"] = "this is a view data";
             return View(movieCards);
