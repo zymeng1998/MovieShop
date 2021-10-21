@@ -29,5 +29,8 @@ namespace ApplicationCore.Entities
         // rating will not be there in movie table
         // average rating.
         public decimal? Rating { get; set; }
+        // navigational
+        public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<MovieGenre> Genres { get; set; }
     }
 }

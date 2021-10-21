@@ -33,6 +33,10 @@ namespace Infrastructure.Data
             // modelBuilder.Entity<Purchase>(ConfigurePurchase);
             // role
             modelBuilder.Entity<Role>(ConfigureRole);
+            // movegenre
+            modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
+            // user
+            modelBuilder.Entity<User>(ConfigureUser);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
@@ -102,6 +106,30 @@ namespace Infrastructure.Data
             builder.Property(r => r.Name).HasMaxLength(20);
         }
 
+        private void ConfigureUser(EntityTypeBuilder<User> builder)
+        {
+            builder.ToTable("User");
+            builder.HasKey(u => u.Id);
+            builder.Property(u => u.FirstName).HasMaxLength(128);
+            builder.Property(u => u.LastName).HasMaxLength(128);
+            builder.Property(u => u.DateOfBirth).HasDefaultValueSql("getdate()");
+            builder.Property(u => u.Email).HasMaxLength(256);
+            builder.Property(u => u.HasedPassword).HasMaxLength(1024);
+            builder.Property(u => u.Salt).HasMaxLength(1024);
+            builder.Property(u => u.PhoneNumber).HasMaxLength(16);
+            builder.Property(u => u.LockoutEndDate).HasDefaultValueSql("getdate()");
+            builder.Property(u => u.LastLoginDateTime).HasDefaultValueSql("getdate()");
+
+
+        }
+
+        private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder) {
+            builder.ToTable("MovieGenre");
+            builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
+            builder.HasOne(m => m.Movie).WithMany(m => m.Genres).HasForeignKey(m => m.MovieId);
+            builder.HasOne(g => g.Genre).WithMany(g => g.Movies).HasForeignKey(g => g.GenreId);
+        }
+
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -111,5 +139,7 @@ namespace Infrastructure.Data
         public DbSet<Trailer> Trailers { get; set; }
         // public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Role> Roles { get; set; }
+        //public DbSet<User> Users { get; set; }
+        public DbSet<MovieGenre> MovieGenres { get; set; }
     }
 }
