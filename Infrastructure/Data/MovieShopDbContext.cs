@@ -25,6 +25,8 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Crew>(ConfigureCrew);
             // cast
             modelBuilder.Entity<Cast>(ConfigureCast);
+            // favorite
+            modelBuilder.Entity<Favorite>(ConfigureFavorite);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder) {
@@ -64,10 +66,17 @@ namespace Infrastructure.Data
             builder.Property(c => c.ProfilePath).HasMaxLength(2084);
         }
 
+        private void ConfigureFavorite(EntityTypeBuilder<Favorite> builder)
+        {
+            builder.ToTable("Favorite");
+            builder.HasKey(f => f.Id);
+        }
+
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies{ get; set; }
         public DbSet<Crew> Crew { get; set; }
         public DbSet<Cast> Cast { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
     }
 }
