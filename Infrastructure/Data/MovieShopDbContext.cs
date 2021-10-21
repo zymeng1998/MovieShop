@@ -19,7 +19,10 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // specify fluent api rules for your entities
+            //movie
             modelBuilder.Entity<Movie>(ConfigureMovie);
+            //crew
+            modelBuilder.Entity<Crew>(ConfigureCrew);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder) {
@@ -40,8 +43,18 @@ namespace Infrastructure.Data
             // we wanna EF to ignore Rating property and not to create the column
             builder.Ignore(m => m.Rating);
         }
+        private void ConfigureCrew(EntityTypeBuilder<Crew> builder) {
+            builder.ToTable("Crew");
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Name).HasMaxLength(128);
+            builder.Property(c => c.Gender).HasMaxLength(int.MaxValue);
+            builder.Property(c => c.TmdbUrl).HasMaxLength(int.MaxValue);
+            builder.Property(c => c.ProfilePath).HasMaxLength(2084);
+        }
+
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies{ get; set; }
+        public DbSet<Crew> Crew { get; set; }
     }
 }
