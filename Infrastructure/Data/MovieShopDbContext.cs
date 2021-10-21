@@ -31,6 +31,8 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Trailer>(ConfigureTrailer);
             // purchase
             // modelBuilder.Entity<Purchase>(ConfigurePurchase);
+            // role
+            modelBuilder.Entity<Role>(ConfigureRole);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
@@ -93,6 +95,13 @@ namespace Infrastructure.Data
 
         }
 
+        private void ConfigureRole(EntityTypeBuilder<Role> builder)
+        {
+            builder.ToTable("Role");
+            builder.HasKey(r => r.Id);
+            builder.Property(r => r.Name).HasMaxLength(20);
+        }
+
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -101,5 +110,6 @@ namespace Infrastructure.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
         // public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }
