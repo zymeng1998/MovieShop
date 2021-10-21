@@ -14,7 +14,7 @@ namespace Infrastructure.Data
         // get the connection string into constructor
         public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options) : base(options)
         {
-               
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,9 +27,12 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Cast>(ConfigureCast);
             // favorite
             modelBuilder.Entity<Favorite>(ConfigureFavorite);
+            // Trailer
+            modelBuilder.Entity<Trailer>(ConfigureTrailer);
         }
 
-        private void ConfigureMovie(EntityTypeBuilder<Movie> builder) {
+        private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
+        {
             builder.ToTable("Movie");
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Title).HasMaxLength(256);
@@ -47,7 +50,8 @@ namespace Infrastructure.Data
             // we wanna EF to ignore Rating property and not to create the column
             builder.Ignore(m => m.Rating);
         }
-        private void ConfigureCrew(EntityTypeBuilder<Crew> builder) {
+        private void ConfigureCrew(EntityTypeBuilder<Crew> builder)
+        {
             builder.ToTable("Crew");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).HasMaxLength(128);
@@ -72,11 +76,20 @@ namespace Infrastructure.Data
             builder.HasKey(f => f.Id);
         }
 
+        private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
+        {
+            builder.ToTable("Trailer");
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.TrailerUrl).HasMaxLength(2084);
+            builder.Property(t => t.Name).HasMaxLength(2084);
+        }
+
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Movie> Movies{ get; set; }
+        public DbSet<Movie> Movies { get; set; }
         public DbSet<Crew> Crew { get; set; }
         public DbSet<Cast> Cast { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Trailer> Trailers { get; set; }
     }
 }

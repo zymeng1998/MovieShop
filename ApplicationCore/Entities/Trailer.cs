@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    public class Favorite
+    public class Trailer
     {
         public int Id { get; set; }
         public int MovieId { get; set; }
-        public int UserId { get; set; }
+        public string? TrailerUrl { get; set; }
+        public string? Name { get; set; }
     }
 }
