@@ -13,7 +13,7 @@ namespace ApplicationCore.Entities
         public string? LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Email { get; set; }
-        public string? HasedPassword { get; set; }
+        public string? HashedPassword { get; set; }
         public string? Salt { get; set; }
         public string? PhoneNumber { get; set; }
         public DateTime? LockoutEndDate { get; set; }
