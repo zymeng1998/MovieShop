@@ -37,6 +37,10 @@ namespace Infrastructure.Data
             modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
             // user
             modelBuilder.Entity<User>(ConfigureUser);
+            // review
+            modelBuilder.Entity<Review>(ConfigureReview);
+            // moviecasts
+            modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
@@ -120,8 +124,6 @@ namespace Infrastructure.Data
             builder.Property(u => u.PhoneNumber).HasMaxLength(16);
             builder.Property(u => u.LockoutEndDate).HasDefaultValueSql("getdate()");
             builder.Property(u => u.LastLoginDateTime).HasDefaultValueSql("getdate()");
-
-
         }
 
         private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
@@ -132,6 +134,20 @@ namespace Infrastructure.Data
             builder.HasOne(g => g.Genre).WithMany(g => g.Movies).HasForeignKey(g => g.GenreId);
         }
 
+        private void ConfigureReview(EntityTypeBuilder<Review> builder) {
+            builder.ToTable("Review");
+            builder.HasKey(r => new { r.MovieId, r.UserId });
+            builder.Property(r => r.ReviewText).HasMaxLength(int.MaxValue);
+            builder.Property(r => r.Rating).HasColumnType("decimal(3,2)").HasDefaultValue(9.9m);
+        }
+
+        private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder) {
+            builder.ToTable("MovieCast");
+            builder.HasKey(mc => new { mc.MovieId, mc.CastId, mc.Character });
+            builder.Property(mc => mc.Character).HasMaxLength(450);
+            builder.HasOne(m => m.Movie).WithMany(m => m.Casts).HasForeignKey(m => m.MovieId);
+            builder.HasOne(c => c.Cast).WithMany(c => c.Movies).HasForeignKey(c => c.CastId);
+        }
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -139,9 +155,11 @@ namespace Infrastructure.Data
         public DbSet<Cast> Cast { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
-        // public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Role> Roles { get; set; }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<MovieGenre> MovieGenres { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<MovieCast> MovieCasts { get; set; }
     }
 }
