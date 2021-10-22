@@ -30,7 +30,7 @@ namespace Infrastructure.Data
             // Trailer
             modelBuilder.Entity<Trailer>(ConfigureTrailer);
             // purchase
-            // modelBuilder.Entity<Purchase>(ConfigurePurchase);
+            modelBuilder.Entity<Purchase>(ConfigurePurchase);
             // role
             modelBuilder.Entity<Role>(ConfigureRole);
             // movegenre
@@ -95,7 +95,8 @@ namespace Infrastructure.Data
         private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
         {
             builder.ToTable("Purchase");
-            // to be continued
+            builder.Property(p => p.PurchaseDateTime).HasDefaultValueSql("getdate()");
+            builder.Property(p => p.TotalPrice).HasColumnType("decimal(18, 2)").HasDefaultValue(9.9m);
 
         }
 
@@ -123,7 +124,8 @@ namespace Infrastructure.Data
 
         }
 
-        private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder) {
+        private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
+        {
             builder.ToTable("MovieGenre");
             builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
             builder.HasOne(m => m.Movie).WithMany(m => m.Genres).HasForeignKey(m => m.MovieId);
