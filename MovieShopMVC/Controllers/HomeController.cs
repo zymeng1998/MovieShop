@@ -27,10 +27,10 @@ namespace MovieShopMVC.Controllers
         //routing 
         [HttpGet]
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            var movieCards = _movieServices.GetTop30RevenueMovies();
+            var movieCards = await _movieServices.GetTop30RevenueMovies();
             // passing data from controller to view, we can use strongly typed models
             // ViewBag and ViewData 
 

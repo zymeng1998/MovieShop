@@ -17,6 +17,16 @@ namespace Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Movie> GetMovieById(int Id)
+        {
+            var movie = await _dbContext.Movies.Include(m => m.Casts).ThenInclude(cs => cs.Cast)
+                .Include(m => m.Genres).ThenInclude(gs => gs.Genre)
+                .Include(m => m.Trailers).FirstOrDefaultAsync(m => m.Id == Id);
+            return movie;
+        }
+        // first vs FirstOrDefault
+        // Single vs SingleOrDefault
         public async Task<IEnumerable<Movie>> GetTop30RevenueMovies()
         {
             // we use EF with LinQ to get top 30 movies by revenue

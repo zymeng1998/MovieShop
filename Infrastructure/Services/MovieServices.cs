@@ -16,12 +16,12 @@ namespace Infrastructure.Services
         {
             _movieRepository = movieRepository;
         }
-        public List<MovieCardResponseModel> GetTop30RevenueMovies()
+        public async Task<List<MovieCardResponseModel>> GetTop30RevenueMovies()
         {
             // method should call moview repo and get the data from movie table
 
             // calling MovieRepo with DI based on IMovieRepo
-            var movies = _movieRepository.GetTop30RevenueMovies();
+            var movies = await _movieRepository.GetTop30RevenueMovies();
             var movieCards = new List<MovieCardResponseModel>();
             foreach (var movie in movies)
             {
