@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,12 @@ namespace Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-        public IEnumerable<Movie> GetTop30RevenueMovies()
+        public async Task<IEnumerable<Movie>> GetTop30RevenueMovies()
         {
             // we use EF with LinQ to get top 30 movies by revenue
             // use DbSet to query
-            var movies = _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToList();
+            // I?O bound op
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
             return movies;
         }
     }
