@@ -1,8 +1,20 @@
 ﻿@model List<ApplicationCore.Models.CastResponseModel>
-
-@foreach (var cast in Model)
-{
-<div>
-    @cast.Name
-</div>
-}
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Character</th>
+                <th scope="col">Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cast in Model)
+            {
+            <tr>
+                <td> @cast.Name </td> <td> @cast.Character</td> <td> @cast.ProfilePath</td>
+            </tr>
+                
+            }
+        </tbody>
+    </table>
+    
