@@ -36,6 +36,8 @@ namespace MovieShopMVC
                 options => options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection"))
                 );
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserServices, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

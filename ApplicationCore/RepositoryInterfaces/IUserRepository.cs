@@ -10,5 +10,7 @@ namespace ApplicationCore.RepositoryInterfaces
     public interface IUserRepository
     {
         Task<User> GetUserByEmail(string email);
+        Task<User> AddUser(User user);
+
     }
 }
