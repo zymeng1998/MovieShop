@@ -37,9 +37,15 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         [HttpPost]
-        public Task<IActionResult> Login(UserLoginRequestModel requestModel)
+        public async Task<IActionResult> Login(UserLoginRequestModel requestModel)
         {
-            return View();
+            var user = await _userService.LoginUser(requestModel);
+            if (user == null)
+            {
+                // show msg saying email/password is wrong.
+                return View();
+            }
+            return LocalRedirect("~/");
         }
     }
 }
