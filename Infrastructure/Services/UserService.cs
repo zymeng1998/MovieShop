@@ -15,11 +15,17 @@ namespace Infrastructure.Services
     public class UserService : IUserServices
     {
         private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         public async Task<int> RegisterUser(UserRegisterRequestModel requestModel)
         {
             // check whether email exist
             // 
-            var email = requestModel.Email;
+            string email = requestModel.Email;
             var dbUser = await _userRepository.GetUserByEmail(email);
             if (dbUser != null)
             {
