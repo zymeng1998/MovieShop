@@ -7,15 +7,19 @@
 
 <h1>@Model.Title</h1>
 <div class="container-fluid">
-    <img src="@Model.PosterUrl" class="float-left img-fluid col-4 pull-left mr-2" alt="@Model.Title" />
-    <dl class="row col-8">
+    <div class="col-4">
+        <img src="@Model.PosterUrl" class="float-left img-fluid pull-left mr-2" alt="@Model.Title" />
+    </div>
+    <dl class="row">
         <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Title)
+        @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class="col-6">
+        <dd class="col-8">
             @Html.DisplayFor(model => model.Title)
         </dd>
     </dl>
+
+    
 </div>
 
 <div>

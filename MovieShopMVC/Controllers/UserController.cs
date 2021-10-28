@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace MovieShopMVC.Controllers
     {
         [HttpPost]
         public async Task<IActionResult> Purchase() {
-            // purchase when user click on purchase button in movie details
+            // 
+            //purchase when user click on purchase button in movie details
             return View();
         }
 
@@ -26,6 +28,9 @@ namespace MovieShopMVC.Controllers
             // add a review to the movie
             return View();
         }
+        // filter in asp.net
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Purchases(int Id) {
             // list of moviecard
             return View();

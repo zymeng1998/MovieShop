@@ -83,12 +83,16 @@ namespace Infrastructure.Services
             var hashedPassword = GetHashedPassword(requestModel.Password, dbUser.Salt);
             if (hashedPassword == dbUser.HashedPassword) {
                 // password is correct
+                string firstName = "";
+                string lastName = "";
+                if (dbUser.FirstName != null) firstName = dbUser.FirstName;
+                if (dbUser.LastName != null) lastName = dbUser.LastName;
                 var userLoginResponseModel = new UserLoginResponseModel {
-                    FirstName = dbUser.FirstName,
+                    FirstName = firstName,
                     DateOfBirth = dbUser.DateOfBirth.GetValueOrDefault(),
                     Email = dbUser.Email,
                     Id = dbUser.Id,
-                    LastName = dbUser.LastName
+                    LastName = lastName
                 };
                 return userLoginResponseModel;
             }
