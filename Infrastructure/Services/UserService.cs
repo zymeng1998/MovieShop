@@ -72,5 +72,27 @@ namespace Infrastructure.Services
             return hashed;
 
         }
+
+        public async Task<UserLoginResponseModel> LoginUser(UserLoginRequestModel requestModel)
+        {
+            // get the salt and hashedpassword for this user
+            var dbUser = await _userRepository.GetUserByEmail(requestModel.Email);
+            if (dbUser == null) {
+                throw new Exception("no user found");
+            }
+            var hashedPassword = GetHashedPassword(requestModel.Password, dbUser.Salt);
+            if (hashedPassword == dbUser.HashedPassword) {
+                // password is correct
+                var userLoginResponseModel = new UserLoginResponseModel {
+                    FirstName = dbUser.FirstName,
+                    DateOfBirth = dbUser.DateOfBirth.GetValueOrDefault(),
+                    Email = dbUser.Email,
+                    Id = dbUser.Id,
+                    LastName = dbUser.LastName
+                };
+                return userLoginResponseModel;
+            }
+            return null;
+        }
     }
 }

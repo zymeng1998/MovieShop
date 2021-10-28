@@ -27,7 +27,18 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Register() {
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public Task<IActionResult> Login(UserLoginRequestModel requestModel)
+        {
             return View();
         }
     }
