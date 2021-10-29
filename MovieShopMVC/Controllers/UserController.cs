@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MovieShopMVC.Controllers
@@ -14,7 +15,7 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Purchase() {
             // 
             //purchase when user click on purchase button in movie details
-            return View();
+            return View();                        
         }
 
         [HttpPost]
@@ -33,6 +34,9 @@ namespace MovieShopMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Purchases(int Id) {
             // list of moviecard
+            int uid = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            // call get a list of moviecard
+            // dbconext in the repo
             return View();
         }
 
