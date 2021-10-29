@@ -22,6 +22,8 @@ namespace ApplicationCore.Entities
         public bool? TwoFactorEnabled { get; set; }
         public bool? IsLocked { get; set; }
 
+        public ICollection<UserRole> Role { get; set; }
+
 
     }
 }

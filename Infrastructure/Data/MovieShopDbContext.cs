@@ -41,6 +41,8 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Review>(ConfigureReview);
             // moviecasts
             modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
+            // userrole
+            modelBuilder.Entity<UserRole>(ConfigureUserRole);
         }
 
         private void ConfigureMovie(EntityTypeBuilder<Movie> builder)
@@ -148,6 +150,14 @@ namespace Infrastructure.Data
             builder.HasOne(m => m.Movie).WithMany(m => m.Casts).HasForeignKey(m => m.MovieId);
             builder.HasOne(c => c.Cast).WithMany(c => c.Movies).HasForeignKey(c => c.CastId);
         }
+
+        private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder) {
+            builder.ToTable("UserRole");
+            builder.HasKey(ur => new { ur.UserId, ur.RoleId });
+            builder.HasOne(ur => ur.User).WithMany(u => u.Role).HasForeignKey(r => r.RoleId);
+            builder.HasOne(ur => ur.Role).WithMany(r => r.Users).HasForeignKey(u => u.UserId);
+
+        }
         // make sure our entity classes are represented as DbSets
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -161,5 +171,6 @@ namespace Infrastructure.Data
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<MovieCast> MovieCasts { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
     }
 }
