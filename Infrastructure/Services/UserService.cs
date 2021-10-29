@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using ApplicationCore.Entities;
+using ApplicationCore.Helpers;
 
 namespace Infrastructure.Services
 {
@@ -102,12 +103,8 @@ namespace Infrastructure.Services
         public async Task<List<MovieCardResponseModel>> GetPurchasesByUserId(int Id)
         {
             var movies = await _userRepository.GetPurchases(Id);
-            var movieCards = new List<MovieCardResponseModel>();
-
-            foreach (var movie in movies)
-            {
-
-            }
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return movieCards;
 
         }
     }

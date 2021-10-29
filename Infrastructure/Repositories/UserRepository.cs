@@ -26,7 +26,7 @@ namespace Infrastructure.Repositories
             return user;
         }
 
-        public async Task<List<Movie>> GetPurchases(int Id)
+        public async Task<IEnumerable<Movie>> GetPurchases(int Id)
         {
             var purchases = _dbContext.Purchases.Where(u => u.UserId == Id);
             var movies = new List<Movie>();

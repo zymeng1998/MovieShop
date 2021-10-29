@@ -11,7 +11,7 @@ namespace ApplicationCore.RepositoryInterfaces
     {
         Task<User> GetUserByEmail(string email);
         Task<User> AddUser(User user);
-        Task<List<Movie>> GetPurchases(int Id);
+        Task<IEnumerable<Movie>> GetPurchases(int Id);
 
     }
 }

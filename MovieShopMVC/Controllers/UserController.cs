@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.Models;
+using ApplicationCore.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,13 @@ namespace MovieShopMVC.Controllers
     // all action methods shold work for authenticated users.
     public class UserController : Controller
     {
+        private readonly IUserServices _userService;
+
+        public UserController(IUserServices userService)
+        {
+            _userService = userService;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Purchase() {
             // 
@@ -30,14 +39,16 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         // filter in asp.net
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> Purchases(int Id) {
             // list of moviecard
-            int uid = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //int uid = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             // call get a list of moviecard
+
             // dbconext in the repo
-            return View();
+            List<MovieCardResponseModel> movieCards = await _userService.GetPurchasesByUserId(Id);
+            return View(movieCards);
         }
 
         public async Task<IActionResult> Favorites(int Id) {
