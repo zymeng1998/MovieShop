@@ -23,6 +23,11 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterRequestModel requestModel)
         {
+            // validate
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             // save registration to database
             // receive model from view
             var newUser = await _userService.RegisterUser(requestModel);
@@ -67,13 +72,14 @@ namespace MovieShopMVC.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimIdentity));
 
-        // logout =>
+            // logout =>
 
 
             return LocalRedirect("~/");
         }
 
-        public async Task<IActionResult> Logout() {
+        public async Task<IActionResult> Logout()
+        {
             // invalidate the auth cookie
             // redirect to login
 
