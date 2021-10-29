@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetFavorites(int Id)
         {
-            var favorites = _dbContext.Favorites.Where(u => u.UserId == Id);
+            var favorites = _dbContext.Favorites.Where(u => u.UserId == Id).ToList();
             var movies = new List<Movie>();
             foreach (var fav in favorites)
             {
@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetPurchases(int Id)
         {
-            var purchases = _dbContext.Purchases.Where(u => u.UserId == Id);
+            var purchases = _dbContext.Purchases.Where(u => u.UserId == Id).ToList();
             var movies = new List<Movie>();
             foreach (var pur in purchases)
             {
