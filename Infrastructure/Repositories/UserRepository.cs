@@ -10,20 +10,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : EFRepository<User>, IUserRepository
     {
-        private readonly MovieShopDbContext _dbContext;
+        //private readonly MovieShopDbContext _dbContext;
 
-        public UserRepository(MovieShopDbContext dbContext)
+        public UserRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
-        }
 
-        public async Task<User> AddUser(User user)
-        {
-            await _dbContext.Users.AddAsync(user);
-            await _dbContext.SaveChangesAsync();
-            return user;
         }
 
         public async Task<IEnumerable<Movie>> GetFavorites(int Id)

@@ -49,7 +49,7 @@ namespace Infrastructure.Services
                 HashedPassword = hashedPassword,
             };
             // save to table.
-            var newUser = await _userRepository.AddUser(user);
+            var newUser = await _userRepository.Add(user);
             return newUser.Id;
 
         }

@@ -16,6 +16,8 @@ namespace ApplicationCore.Models
         public string Email { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The length should be 8 to 100", MinimumLength = 8)]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,}$", ErrorMessage =
+            "Password Should have minimum 8 with at least one upper, lower, number and special character")]
         public string Password { get; set; }
         [Required]
         [StringLength(50)]
