@@ -26,6 +26,17 @@ namespace Infrastructure.Repositories
             return user;
         }
 
+        public async Task<List<Movie>> GetPurchases(int Id)
+        {
+            var purchases = _dbContext.Purchases.Where(u => u.UserId == Id);
+            var movies = new List<Movie>();
+            foreach (var pur in purchases)
+            {
+                movies.Add(await _dbContext.Movies.FirstAsync(m => m.Id == pur.MovieId));
+            }
+            return movies;
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);

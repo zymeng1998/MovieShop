@@ -98,5 +98,17 @@ namespace Infrastructure.Services
             }
             return null;
         }
+
+        public async Task<List<MovieCardResponseModel>> GetPurchasesByUserId(int Id)
+        {
+            var movies = await _userRepository.GetPurchases(Id);
+            var movieCards = new List<MovieCardResponseModel>();
+
+            foreach (var movie in movies)
+            {
+
+            }
+
+        }
     }
 }
