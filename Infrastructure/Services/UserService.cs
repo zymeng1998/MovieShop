@@ -107,5 +107,12 @@ namespace Infrastructure.Services
             return movieCards;
 
         }
+
+        public async Task<List<MovieCardResponseModel>> GetFavoriteByUserId(int Id)
+        {
+            var movies = await _userRepository.GetFavorites(Id);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return movieCards;
+        }
     }
 }

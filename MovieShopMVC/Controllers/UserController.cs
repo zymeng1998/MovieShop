@@ -53,7 +53,9 @@ namespace MovieShopMVC.Controllers
 
         public async Task<IActionResult> Favorites(int Id) {
             // all movies favorited by that user
-            return View();
+
+            List<MovieCardResponseModel> movieCards = await _userService.GetFavoriteByUserId(Id);
+            return View(movieCards);
         }
 
         public async Task<IActionResult> Reviews(int Id) {

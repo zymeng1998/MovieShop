@@ -12,5 +12,6 @@ namespace ApplicationCore.ServiceInterfaces
         Task<int> RegisterUser(UserRegisterRequestModel requestModel);
         Task<UserLoginResponseModel> LoginUser(UserLoginRequestModel requestModel);
         Task<List<MovieCardResponseModel>> GetPurchasesByUserId(int Id);
+        Task<List<MovieCardResponseModel>> GetFavoriteByUserId(int Id);
     }
 }

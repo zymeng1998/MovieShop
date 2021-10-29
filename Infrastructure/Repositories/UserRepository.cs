@@ -26,13 +26,26 @@ namespace Infrastructure.Repositories
             return user;
         }
 
+        public async Task<IEnumerable<Movie>> GetFavorites(int Id)
+        {
+            var favorites = _dbContext.Favorites.Where(u => u.UserId == Id);
+            var movies = new List<Movie>();
+            foreach (var fav in favorites)
+            {
+                var movie = await _dbContext.Movies.FirstAsync(m => m.Id == fav.MovieId);
+                movies.Add(movie);
+            }
+            return movies;
+        }
+
         public async Task<IEnumerable<Movie>> GetPurchases(int Id)
         {
             var purchases = _dbContext.Purchases.Where(u => u.UserId == Id);
             var movies = new List<Movie>();
             foreach (var pur in purchases)
             {
-                movies.Add(await _dbContext.Movies.FirstAsync(m => m.Id == pur.MovieId));
+                var movie = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == pur.MovieId);
+                movies.Add(movie);
             }
             return movies;
         }
