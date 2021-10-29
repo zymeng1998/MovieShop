@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MovieShopMVC.Services;
 
 namespace MovieShopMVC
 {
@@ -39,6 +40,8 @@ namespace MovieShopMVC
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserServices, UserService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddHttpContextAccessor();
             services.AddAuthentication(CookieAuthenticationDefaults
                 .AuthenticationScheme).AddCookie(option => 
                 {

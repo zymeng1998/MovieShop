@@ -2,6 +2,7 @@
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieShopMVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace MovieShopMVC.Controllers
     public class UserController : Controller
     {
         private readonly IUserServices _userService;
+        private readonly ICurrentUserService _currentUserService;
+
+        public UserController(ICurrentUserService currentUserService)
+        {
+            _currentUserService = currentUserService;
+        }
 
         public UserController(IUserServices userService)
         {
@@ -39,22 +46,23 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         // filter in asp.net
-        //[Authorize]
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Purchases(int Id) {
+        public async Task<IActionResult> Purchases() {
             // list of moviecard
             //int uid = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             // call get a list of moviecard
 
             // dbconext in the repo
-            List<MovieCardResponseModel> movieCards = await _userService.GetPurchasesByUserId(Id);
+            var uid = _currentUserService.UserId;
+            List<MovieCardResponseModel> movieCards = await _userService.GetPurchasesByUserId(uid);
             return View(movieCards);
         }
 
-        public async Task<IActionResult> Favorites(int Id) {
+        public async Task<IActionResult> Favorites() {
             // all movies favorited by that user
-
-            List<MovieCardResponseModel> movieCards = await _userService.GetFavoriteByUserId(Id);
+            var uid = _currentUserService.UserId;
+            List<MovieCardResponseModel> movieCards = await _userService.GetFavoriteByUserId(uid);
             return View(movieCards);
         }
 
