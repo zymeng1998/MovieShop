@@ -28,6 +28,12 @@ namespace Infrastructure.Repositories
             if (movieRating > 0) movie.Rating = movieRating;
             return movie;
         }
+
+        public Task<IEnumerable<Review>> GetMovieReviews(int Id, int pageSize = 30, int page = 1)
+        {
+            throw new NotImplementedException();
+        }
+
         // first vs FirstOrDefault
         // Single vs SingleOrDefault
         public async Task<IEnumerable<Movie>> GetTop30RevenueMovies()

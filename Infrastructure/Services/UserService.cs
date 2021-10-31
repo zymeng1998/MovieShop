@@ -114,5 +114,50 @@ namespace Infrastructure.Services
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
             return movieCards;
         }
+
+        public Task AddFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddMovieReview(ReviewRequestModel reviewRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateMovieReview(ReviewRequestModel reviewRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteMovieReview(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserReviewResponseModel> GetAllReviewsByUser(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
