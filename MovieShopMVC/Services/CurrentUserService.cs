@@ -24,7 +24,7 @@ namespace MovieShopMVC.Services
                                        _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
 
         public string FullName => _httpContextAccessor.HttpContext?.User.Claims
-                                      .FirstOrDefault(c => c.Type == FullName)?.Value;
+                                      .FirstOrDefault(c => c.Type == "FullName")?.Value;
 
 
         public string Email => _httpContextAccessor.HttpContext?.User.Claims
