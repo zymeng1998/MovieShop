@@ -6,109 +6,78 @@
 
 
 <h1>@Model.Title</h1>
-<div class="container-fluid">
-    <div class="col-4">
-        <img src="@Model.PosterUrl" class="float-left img-fluid pull-left mr-2" alt="@Model.Title" />
+<div class="container">
+    <div class="row" style="background-image: url(@Model.BackdropUrl)">
+        <div class="col">
+            <img src="@Model.PosterUrl" width="300" />
+        </div>
+        <div class="col-6">
+            <h1 style="color:white">@Model.Title</h1>
+            <div style="font-size:smaller; color:lightgray">@Model.Tagline</div>
+            <br />
+            <div style="font-size:medium; color:lightgray">
+                @Model.RunTime m | @Model.ReleaseDate.Value.Year
+                @foreach (var genre in Model.Genres)
+                {
+                    <span class="badge badge-pill badge-dark">@genre.Name</span>
+                }
+            </div>
+            <br />
+            <div>
+                <span class="badge badge-success" style="font-size:medium;">@Model.Rating?.ToString("0.00")</span>
+            </div>
+            <br />
+            <div style="font-size:medium; color:white">
+                @Model.Overview
+            </div>
+            <br />
+        </div>
+        <div class="col">
+            <br />
+            <br />
+            <ul class="list-group-buttons">
+                <li class="list-group-items">
+                    <a asp-controller="User" asp-action="Review">
+                        <button type="button" class="btn btn-outline-light btn-lg btn-block">REVIEW</button>
+                    </a>
+
+                    <button type="button" class="btn btn-light btn-lg btn-block">BUY AT $@Model.Price</button>
+                </li>
+            </ul>
+        </div>
     </div>
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-8">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-
-
+    <br />
+    <div class="row">
+        <div class="col-4">
+            <ul class="list-group-trailers">
+                <li>
+                    Release Date <span class="badge badge-pill badge-dark">@Model.ReleaseDate.Value.ToShortDateString()</span>
+                </li>
+                <li>
+                    Run Time <span class="badge badge-pill badge-dark">@Model.RunTime m</span>
+                </li>
+                <li>
+                    Box Office <span class="badge badge-pill badge-dark">$@Model.Revenue</span>
+                </li>
+                <li>
+                    Budget <span class="badge badge-pill badge-dark">$@Model.Budget</span>
+                </li>
+            </ul>
+            <h3>TRAILERS</h3>
+            <ul class="list-group-trailers">
+                @foreach (var trailer in Model.Trailers)
+                {
+                    <li class="list-group-trailers-items">
+                        <a href="@trailer.TrailerUrl">@trailer.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-8">
+            <h3>CAST</h3>
+            <partial name="_castDetails" model="Model.Casts" />
+        </div>
+    </div>
 </div>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PosterUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BackdropUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BackdropUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Overview)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Overview)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tagline)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tagline)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Revenue)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Revenue)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImdbUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImdbUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TmdbUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TmdbUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RunTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RunTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-</div>
-<partial name="_castDetails" model="Model.Casts" />
+

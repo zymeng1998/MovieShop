@@ -52,7 +52,7 @@ namespace Infrastructure.Services
                     });
             }
 
-            foreach (var cast in movie.Casts) 
+            foreach (var cast in movie.Casts)
             {
                 movieDetails.Casts.Add(
                     new CastResponseModel
@@ -62,6 +62,19 @@ namespace Infrastructure.Services
                         Name = cast.Cast.Name,
                         ProfilePath = cast.Cast.ProfilePath
                     });
+            }
+
+            foreach (var trailer in movie.Trailers)
+            {
+                movieDetails.Trailers.Add(
+                    new TrailerResponseModel
+                    {
+                        Id = trailer.Id,
+                        MovieId = trailer.MovieId,
+                        Name = trailer.Name,
+                        TrailerUrl = trailer.TrailerUrl
+                    });
+
             }
 
             return movieDetails;

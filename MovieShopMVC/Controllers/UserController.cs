@@ -17,15 +17,12 @@ namespace MovieShopMVC.Controllers
         private readonly IUserServices _userService;
         private readonly ICurrentUserService _currentUserService;
 
-        public UserController(ICurrentUserService currentUserService)
+        public UserController(ICurrentUserService currentUserService, IUserServices userService)
         {
             _currentUserService = currentUserService;
-        }
-
-        public UserController(IUserServices userService)
-        {
             _userService = userService;
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Purchase() {

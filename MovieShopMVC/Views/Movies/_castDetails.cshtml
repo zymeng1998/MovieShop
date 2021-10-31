@@ -1,17 +1,17 @@
 ﻿@model List<ApplicationCore.Models.CastResponseModel>
-    <table>
+    <table class="table-sm">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Character</th>
-                <th scope="col">Profile</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var cast in Model)
             {
             <tr>
-                <td> @cast.Name </td> <td> @cast.Character</td> <td> @cast.ProfilePath</td>
+                <td> <img class="showing" src="@cast.ProfilePath" width="50" /></td> <td> @cast.Name </td> <td> @cast.Character</td> 
             </tr>
                 
             }
