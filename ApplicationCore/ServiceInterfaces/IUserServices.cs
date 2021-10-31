@@ -18,11 +18,15 @@ namespace ApplicationCore.ServiceInterfaces
         Task AddFavorite(FavoriteRequestModel favoriteRequest);
         Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
         Task<List<MovieCardResponseModel>> GetFavoriteByUserId(int Id);
+        // need refactoring
+        Task<FavoriteResponseModel> GetAllFavoritesForUser(int id);
 
         // purchase
         Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
         Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
         Task<List<MovieCardResponseModel>> GetPurchasesByUserId(int Id);
+        // need refactoring
+        Task<PurchaseResponseModel> GetAllPurchasesForUser(int id);
         Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId);
 
         // review

@@ -12,7 +12,6 @@ namespace Infrastructure.Repositories
 {
     public class MovieRepository : EFRepository<Movie>, IMovieRepository
     {
-        //public MovieShopDbContext _dbContext;
         public MovieRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
 
