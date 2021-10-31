@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models
 {
-    public class FavoriteRequestModel
+    public class PurchaseResponseModel
     {
-        public int UserId { get; set; }
-        public int MovieId { get; set; }
     }
 }
