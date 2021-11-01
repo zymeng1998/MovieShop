@@ -52,15 +52,15 @@ namespace MovieShopMVC.Controllers
 
             // dbconext in the repo
             var uid = _currentUserService.UserId;
-            List<MovieCardResponseModel> movieCards = await _userService.GetPurchasesByUserId(uid);
-            return View(movieCards);
+            PurchaseResponseModel responseModel = await _userService.GetAllPurchasesForUser(uid);
+            return View(responseModel);
         }
 
         public async Task<IActionResult> Favorites() {
             // all movies favorited by that user
             var uid = _currentUserService.UserId;
-            List<MovieCardResponseModel> movieCards = await _userService.GetFavoriteByUserId(uid);
-            return View(movieCards);
+            FavoriteResponseModel responseModel = await _userService.GetAllFavoritesForUser(uid);
+            return View(responseModel);
         }
 
         public async Task<IActionResult> Reviews(int Id) {
