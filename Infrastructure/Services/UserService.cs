@@ -172,19 +172,44 @@ namespace Infrastructure.Services
             }
         }
 
-        public Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+        public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
         {
-            throw new NotImplementedException();
+            var purchase = await _purchaseReposotory.GetPurchaseDetails(userId, purchaseRequest.MovieId);
+            return purchase != null;
         }
 
-        public Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId)
+        public async Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId)
         {
-            throw new NotImplementedException();
+            var purchase = await _purchaseReposotory.GetPurchaseDetails(userId, movieId);
+            if (purchase == null) throw new Exception("Purchase Record Not Found");
+            var movie = await _movieRepository.GetById(movieId);
+            PurchaseDetailsResponseModel detailsResponseModel = new PurchaseDetailsResponseModel { 
+                Id = purchase.Id,
+                MovieId = movieId,
+                UserId = userId,
+                PosterUrl = movie.PosterUrl,
+                PurchaseDateTime = purchase.PurchaseDateTime,
+                PurchaseNumber = purchase.PurchaseNumber,
+                ReleaseDate = (DateTime)movie.ReleaseDate,
+                Title = movie.Title,
+                TotalPrice = (decimal)movie.Price
+            };
+            return detailsResponseModel;
         }
 
-        public Task AddMovieReview(ReviewRequestModel reviewRequest)
+        public async Task AddMovieReview(ReviewRequestModel reviewRequest)
         {
-            throw new NotImplementedException();
+            var movie = await _movieRepository.GetById(reviewRequest.MovieId);
+            var user = await _userRepository.GetById(reviewRequest.UserId);
+            var review = new Review { 
+                Movie = movie,
+                MovieId = reviewRequest.MovieId,
+                Rating = (decimal)movie.Rating,
+                ReviewText = reviewRequest.ReviewText,
+                User = user,
+                UserId = reviewRequest.UserId
+            };
+            
         }
 
         public Task UpdateMovieReview(ReviewRequestModel reviewRequest)
