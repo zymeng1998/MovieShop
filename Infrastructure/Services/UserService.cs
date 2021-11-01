@@ -19,14 +19,15 @@ namespace Infrastructure.Services
         private readonly IFavoriteRepository _favoriteRepository;
         private readonly IPurchaseRepository _purchaseReposotory;
         private readonly IMovieRepository _movieRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-
-        public UserService(IUserRepository userRepository, IFavoriteRepository favoriteRepository, IPurchaseRepository purchaseReposotory, IMovieRepository movieRepository)
+        public UserService(IReviewRepository reviewRepository, IUserRepository userRepository, IFavoriteRepository favoriteRepository, IPurchaseRepository purchaseReposotory, IMovieRepository movieRepository)
         {
             _userRepository = userRepository;
             _favoriteRepository = favoriteRepository;
             _purchaseReposotory = purchaseReposotory;
             _movieRepository = movieRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<int> RegisterUser(UserRegisterRequestModel requestModel)

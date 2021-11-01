@@ -43,6 +43,7 @@ namespace MovieShopMVC
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
 
             services.AddHttpContextAccessor();
             services.AddAuthentication(CookieAuthenticationDefaults
