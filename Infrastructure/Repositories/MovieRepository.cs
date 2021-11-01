@@ -28,9 +28,11 @@ namespace Infrastructure.Repositories
             return movie;
         }
 
-        public Task<IEnumerable<Review>> GetMovieReviews(int Id, int pageSize = 30, int page = 1)
+        public async Task<IEnumerable<Review>> GetMovieReviews(int Id, int pageSize = 30, int page = 1)
         {
-            throw new NotImplementedException();
+            int takes = page * pageSize;
+            var reviews = await _dbContext.Reviews.Where(m => m.MovieId == Id).Take(takes).ToListAsync();
+            return reviews;
         }
 
         // first vs FirstOrDefault

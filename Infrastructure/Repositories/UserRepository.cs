@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetFavorites(int Id)
         {
-            var favorites = _dbContext.Favorites.Where(u => u.UserId == Id).ToList();
+            var favorites = await _dbContext.Favorites.Where(u => u.UserId == Id).ToListAsync();
             var movies = new List<Movie>();
             foreach (var fav in favorites)
             {
@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetPurchases(int Id)
         {
-            var purchases = _dbContext.Purchases.Where(u => u.UserId == Id).ToList();
+            var purchases = await _dbContext.Purchases.Where(u => u.UserId == Id).ToListAsync();
             var movies = new List<Movie>();
             foreach (var pur in purchases)
             {
@@ -43,9 +43,10 @@ namespace Infrastructure.Repositories
             return movies;
         }
 
-        public Task<IEnumerable<Review>> GetReviewsByUser(int userId)
+        public async Task<IEnumerable<Review>> GetReviewsByUser(int userId)
         {
-            throw new NotImplementedException();
+            var reviews = await _dbContext.Reviews.Where(u => u.UserId == userId).ToListAsync();
+            return reviews;
         }
 
         public async Task<User> GetUserByEmail(string email)
