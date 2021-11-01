@@ -14,8 +14,8 @@ namespace ApplicationCore.Models
             PurchaseNumber = Guid.NewGuid();
         }
 
-        public Guid? PurchaseNumber { get; }
-        public DateTime? PurchaseDateTime { get; }
+        public Guid PurchaseNumber { get; }
+        public DateTime PurchaseDateTime { get; }
         public int MovieId { get; set; }
     }
 }

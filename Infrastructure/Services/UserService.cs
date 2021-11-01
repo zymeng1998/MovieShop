@@ -18,13 +18,15 @@ namespace Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IFavoriteRepository _favoriteRepository;
         private readonly IPurchaseRepository _purchaseReposotory;
+        private readonly IMovieRepository _movieRepository;
 
 
-        public UserService(IUserRepository userRepository, IFavoriteRepository favoriteRepository, IPurchaseRepository purchaseReposotory)
+        public UserService(IUserRepository userRepository, IFavoriteRepository favoriteRepository, IPurchaseRepository purchaseReposotory, IMovieRepository movieRepository)
         {
             _userRepository = userRepository;
             _favoriteRepository = favoriteRepository;
             _purchaseReposotory = purchaseReposotory;
+            _movieRepository = movieRepository;
         }
 
         public async Task<int> RegisterUser(UserRegisterRequestModel requestModel)
@@ -126,17 +128,48 @@ namespace Infrastructure.Services
 
         public async Task AddFavorite(FavoriteRequestModel favoriteRequest)
         {
-            throw new NotImplementedException();
+            await _favoriteRepository.Add(new Favorite
+            {
+                MovieId = favoriteRequest.MovieId,
+                UserId = favoriteRequest.UserId,
+                User = await _userRepository.GetById(favoriteRequest.UserId),
+                Movie = await _movieRepository.GetById(favoriteRequest.MovieId)
+            });
         }
 
-        public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
+        public async Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
         {
-            throw new NotImplementedException();
+            await _favoriteRepository.Delete(new Favorite
+            {
+                MovieId = favoriteRequest.MovieId,
+                UserId = favoriteRequest.UserId,
+                User = await _userRepository.GetById(favoriteRequest.UserId),
+                Movie = await _movieRepository.GetById(favoriteRequest.MovieId)
+            });
         }
 
-        public Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
+        public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
         {
-            throw new NotImplementedException();
+            if (await IsMoviePurchased(purchaseRequest, userId))
+            {
+                return false;
+            }
+            else
+            {
+                var movie = await _movieRepository.GetById(purchaseRequest.MovieId);
+
+                await _purchaseReposotory.Add(new Purchase
+                {
+                    MovieId = purchaseRequest.MovieId,
+                    Movie = movie,
+                    User = await _userRepository.GetById(userId),
+                    UserId = userId,
+                    PurchaseNumber = purchaseRequest.PurchaseNumber,
+                    PurchaseDateTime = purchaseRequest.PurchaseDateTime,
+                    TotalPrice = (decimal)movie.Price
+                });
+                return true;
+            }
         }
 
         public Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
