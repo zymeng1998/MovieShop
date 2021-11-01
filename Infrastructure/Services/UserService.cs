@@ -234,7 +234,19 @@ namespace Infrastructure.Services
         // needs clarifications
         public async Task<UserReviewResponseModel> GetAllReviewsByUser(int Id)
         {
-            throw new NotImplementedException();
+            var reviews = await _reviewRepository.Get(r => r.UserId == Id);
+            List<MovieReviewResponseModel> lstOfMovieReview = new List<MovieReviewResponseModel>();
+            foreach (var r in reviews)
+            {
+                lstOfMovieReview.Add(new MovieReviewResponseModel { 
+                    MovieId = r.MovieId,
+                    Name = r.Movie.Title,
+                    Rating = r.Rating,
+                    ReviewText = r.ReviewText,
+                    UserId = Id
+                });
+            }
+            return new UserReviewResponseModel { MovieReviews = lstOfMovieReview, UserId = Id};
         }
         
         public async Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
