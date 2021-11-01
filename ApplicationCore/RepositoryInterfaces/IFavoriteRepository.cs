@@ -9,5 +9,6 @@ namespace ApplicationCore.RepositoryInterfaces
 {
     public interface IFavoriteRepository : IAsyncRepository<Favorite>
     {
+        Task<Favorite> GetByUserIdAndMovieId(int userId, int movieId);
     }
 }

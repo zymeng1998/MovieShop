@@ -140,13 +140,9 @@ namespace Infrastructure.Services
 
         public async Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
         {
-            await _favoriteRepository.Delete(new Favorite
-            {
-                MovieId = favoriteRequest.MovieId,
-                UserId = favoriteRequest.UserId,
-                User = await _userRepository.GetById(favoriteRequest.UserId),
-                Movie = await _movieRepository.GetById(favoriteRequest.MovieId)
-            });
+            var toDelete = await _favoriteRepository.GetByUserIdAndMovieId(favoriteRequest.UserId, favoriteRequest.MovieId);
+            if (toDelete == null) throw new Exception("Favorite Record Not Found");
+            await _favoriteRepository.Delete(toDelete);
         }
 
         public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
@@ -210,32 +206,49 @@ namespace Infrastructure.Services
                 User = user,
                 UserId = reviewRequest.UserId
             };
-            
+            await _reviewRepository.Add(review);
         }
 
-        public Task UpdateMovieReview(ReviewRequestModel reviewRequest)
+        public async Task UpdateMovieReview(ReviewRequestModel reviewRequest)
+        {
+            var movie = await _movieRepository.GetById(reviewRequest.MovieId);
+            var user = await _userRepository.GetById(reviewRequest.UserId);
+            var review = new Review
+            {
+                Movie = movie,
+                MovieId = reviewRequest.MovieId,
+                Rating = (decimal)movie.Rating,
+                ReviewText = reviewRequest.ReviewText,
+                User = user,
+                UserId = reviewRequest.UserId
+            };
+            await _reviewRepository.Update(review);
+        }
+
+        public async Task DeleteMovieReview(int userId, int movieId)
+        {
+            var toDelete = await _reviewRepository.GetByUserIdAndMovieId(userId, movieId);
+            if (toDelete == null) throw new Exception("Review Record Not Found");
+            await _reviewRepository.Delete(toDelete);
+        }
+        // needs clarifications
+        public async Task<UserReviewResponseModel> GetAllReviewsByUser(int Id)
         {
             throw new NotImplementedException();
         }
-
-        public Task DeleteMovieReview(int userId, int movieId)
+        
+        public async Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
         {
-            throw new NotImplementedException();
+            var movies = await _userRepository.GetFavorites(id);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return new FavoriteResponseModel { FavoriteMovies = movieCards, UserId = id };
         }
 
-        public Task<UserReviewResponseModel> GetAllReviewsByUser(int Id)
+        public async Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
-        {
-            throw new NotImplementedException();
+            var movies = await _userRepository.GetPurchases(id);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return new PurchaseResponseModel { UserId = id, PurchasedMovies = movieCards, TotalMoviesPurchased = movieCards.Count};
         }
     }
 }
