@@ -28,6 +28,7 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Purchase() {
             // 
             //purchase when user click on purchase button in movie details
+            
             return View();                        
         }
 
@@ -63,9 +64,11 @@ namespace MovieShopMVC.Controllers
             return View(responseModel);
         }
 
-        public async Task<IActionResult> Reviews(int Id) {
+        public async Task<IActionResult> Reviews() {
             // all reviews
-            return View();
+            var uid = _currentUserService.UserId;
+            UserReviewResponseModel reviewResponseModel = await _userService.GetAllReviewsByUser(uid);
+            return View(reviewResponseModel);
         }
     }
 }
