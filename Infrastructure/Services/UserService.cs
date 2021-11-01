@@ -16,10 +16,15 @@ namespace Infrastructure.Services
     public class UserService : IUserServices
     {
         private readonly IUserRepository _userRepository;
+        private readonly IFavoriteRepository _favoriteRepository;
+        private readonly IPurchaseRepository _purchaseReposotory;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IFavoriteRepository favoriteRepository, IPurchaseRepository purchaseReposotory)
         {
             _userRepository = userRepository;
+            _favoriteRepository = favoriteRepository;
+            _purchaseReposotory = purchaseReposotory;
         }
 
         public async Task<int> RegisterUser(UserRegisterRequestModel requestModel)
@@ -56,7 +61,8 @@ namespace Infrastructure.Services
         private string GetSalt()
         {
             byte[] randomBytes = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create()) {
+            using (var rng = RandomNumberGenerator.Create())
+            {
                 rng.GetBytes(randomBytes);
             }
             return Convert.ToBase64String(randomBytes);
@@ -78,17 +84,20 @@ namespace Infrastructure.Services
         {
             // get the salt and hashedpassword for this user
             var dbUser = await _userRepository.GetUserByEmail(requestModel.Email);
-            if (dbUser == null) {
+            if (dbUser == null)
+            {
                 throw new Exception("no user found");
             }
             var hashedPassword = GetHashedPassword(requestModel.Password, dbUser.Salt);
-            if (hashedPassword == dbUser.HashedPassword) {
+            if (hashedPassword == dbUser.HashedPassword)
+            {
                 // password is correct
                 string firstName = "";
                 string lastName = "";
                 if (dbUser.FirstName != null) firstName = dbUser.FirstName;
                 if (dbUser.LastName != null) lastName = dbUser.LastName;
-                var userLoginResponseModel = new UserLoginResponseModel {
+                var userLoginResponseModel = new UserLoginResponseModel
+                {
                     FirstName = firstName,
                     DateOfBirth = dbUser.DateOfBirth.GetValueOrDefault(),
                     Email = dbUser.Email,
@@ -115,7 +124,7 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
-        public Task AddFavorite(FavoriteRequestModel favoriteRequest)
+        public async Task AddFavorite(FavoriteRequestModel favoriteRequest)
         {
             throw new NotImplementedException();
         }
