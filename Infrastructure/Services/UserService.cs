@@ -159,5 +159,15 @@ namespace Infrastructure.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
