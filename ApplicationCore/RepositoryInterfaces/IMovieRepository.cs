@@ -15,5 +15,7 @@ namespace ApplicationCore.RepositoryInterfaces
         Task<IEnumerable<Movie>> GetMoviesByGenreId(int id);
         Task<Movie> GetMovieById(int Id);
         Task<IEnumerable<Review>> GetMovieReviews(int Id, int pageSize = 30, int page = 1);
+        Task<IEnumerable<Genre>> GetAllGenres();
+        Task<Cast> GetCastById(int id);
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Helpers;
+using ApplicationCore.Entities;
 
 namespace Infrastructure.Services
 {
@@ -109,6 +110,45 @@ namespace Infrastructure.Services
             var movies = await _movieRepository.GetMoviesByGenreId(id);
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
             return movieCards;
+        }
+
+        public async Task<IEnumerable<MovieReviewResponseModel>> GetReviewByMovieId(int id)
+        {
+            var reviews = await _movieRepository.GetMovieReviews(id);
+            var movie = await _movieRepository.GetMovieById(id);
+            List <MovieReviewResponseModel> lst = new List<MovieReviewResponseModel>();
+            foreach (var review in reviews)
+            {
+                lst.Add(new MovieReviewResponseModel {
+                    MovieId = id,
+                    Name = movie.Title,
+                    Rating = review.Rating,
+                    ReviewText = review.ReviewText,
+                    UserId = review.UserId
+                });
+            }
+            return lst;
+        }
+
+        public async Task<IEnumerable<GenreResponseModel>> GetAllGenres()
+        {
+            var genres = await _movieRepository.GetAllGenres();
+            var lst = new List<GenreResponseModel>();
+            foreach (var g in genres)
+            {
+                lst.Add(new GenreResponseModel
+                {
+                    Id = g.Id,
+                    Name = g.Name
+                });
+            }
+            return lst;
+        }
+
+        public async Task<Cast> GetCastById(int id)
+        {
+            var cast = await _movieRepository.GetCastById(id);
+            return cast;
         }
     }
 }

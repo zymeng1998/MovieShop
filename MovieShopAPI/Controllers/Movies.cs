@@ -6,22 +6,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieShopAPI.Controller
+namespace Movies.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieShopAPI : ControllerBase
+    public class Movies : ControllerBase
     {
         // create an api method that shows top 30 revenue movies
         // so that my single page applications, ios ,androd show those in home screen
         private readonly IMovieServices _movieService;
-        public MovieShopAPI(IMovieServices movieService)
+        public Movies(IMovieServices movieService)
         {
             _movieService = movieService;
         }
         [HttpGet]
+        [Route("{id}/reviews")]
+        public async Task<IActionResult> GetReviewsByMovieId(int id)
+        {
+            var reviews = await _movieService.GetReviewByMovieId(id);
+            if (!reviews.Any())
+            {
+                // return 404
+                return NotFound("No movies found");
+            }
+            // 200
+            return Ok(reviews);
+        }
+        [HttpGet]
         [Route("genre/{genreId}")]
-        public async Task<IActionResult> GetMoviesByGenreId(int genreId) {
+        public async Task<IActionResult> GetMoviesByGenreId(int genreId)
+        {
             var movies = await _movieService.GetMoviesByGenreId(genreId);
             // json data and http status code
             if (!movies.Any())

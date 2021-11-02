@@ -81,5 +81,17 @@ namespace Infrastructure.Repositories
             }
             return movies;
         }
+
+        public async Task<IEnumerable<Genre>> GetAllGenres()
+        {
+            var genres = await _dbContext.Genres.ToListAsync();
+            return genres;
+        }
+
+        public async Task<Cast> GetCastById(int id)
+        {
+            var cast = await _dbContext.Cast.FirstOrDefaultAsync(c => c.Id == id);
+            return cast;
+        }
     }
 }
