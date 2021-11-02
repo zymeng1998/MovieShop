@@ -23,7 +23,7 @@ namespace Infrastructure.Services
             var movie = await _movieRepository.GetMovieById(Id);
             if (movie == null)
             {
-                throw new Exception($"No Movie found for this {Id}");
+                return null;
             }
             var movieDetails = new MovieDetailsResponseModel()
             {
@@ -88,6 +88,12 @@ namespace Infrastructure.Services
             // calling MovieRepo with DI based on IMovieRepo
             var movies = await _movieRepository.GetTop30RevenueMovies();
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return movieCards;
+        }
+        public async Task<List<MovieCardResponseModel>> GetMovieCardsForHomePage() {
+            var movies = await _movieRepository.GetAll();
+            var moviesDs = movies.Take(45);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(moviesDs);
             return movieCards;
         }
     }

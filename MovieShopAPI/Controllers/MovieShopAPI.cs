@@ -19,6 +19,34 @@ namespace MovieShopAPI.Controller
         {
             _movieService = movieService;
         }
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll() {
+            var movies = await _movieService.GetMovieCardsForHomePage();
+            if (!movies.Any())
+            {
+                // return 404
+                return NotFound("No movies found");
+            }
+            // 200
+            return Ok(movies);
+        }
+
+        [HttpGet]
+
+        [Route("{id:int}")]
+        // https://localhost/api/movies/{id}/
+        public async Task<IActionResult> GetMovie(int id)
+        {
+            var movie = await _movieService.GetMovieDetails(id);
+            if (movie == null)
+            {
+                // return 404
+                return NotFound("No movies found");
+            }
+            // 200
+            return Ok(movie);
+        }
 
         // create tthe api method that shows the top 30 movies
         // json data
