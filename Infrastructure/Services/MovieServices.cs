@@ -103,5 +103,12 @@ namespace Infrastructure.Services
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
             return movieCards;
         }
+
+        public async Task<IEnumerable<MovieCardResponseModel>> GetMoviesByGenreId(int id)
+        {
+            var movies = await _movieRepository.GetMoviesByGenreId(id);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return movieCards;
+        }
     }
 }

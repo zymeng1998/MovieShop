@@ -70,5 +70,16 @@ namespace Infrastructure.Repositories
             var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
             return movies;
         }
+
+        public async Task<IEnumerable<Movie>> GetMoviesByGenreId(int id)
+        {
+            var movieIds = await _dbContext.MovieGenres.Where(g => g.GenreId == id).Select(m => m.MovieId).ToListAsync();
+            var movies = new List<Movie>();
+            foreach (int Id in movieIds)
+            {
+                movies.Add(await GetMovieById(Id));
+            }
+            return movies;
+        }
     }
 }

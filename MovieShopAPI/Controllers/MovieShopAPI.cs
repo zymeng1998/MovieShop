@@ -20,6 +20,19 @@ namespace MovieShopAPI.Controller
             _movieService = movieService;
         }
         [HttpGet]
+        [Route("genre/{genreId}")]
+        public async Task<IActionResult> GetMoviesByGenreId(int genreId) {
+            var movies = await _movieService.GetMoviesByGenreId(genreId);
+            // json data and http status code
+            if (!movies.Any())
+            {
+                // return 404
+                return NotFound("No movies found");
+            }
+            // 200
+            return Ok(movies);
+        }
+        [HttpGet]
         [Route("toprated")]
         public async Task<IActionResult> GetTopRatedMovies()
         {
