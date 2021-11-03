@@ -18,11 +18,12 @@ namespace MovieShopAPI.Controllers
         {
             _movieService = movieService;
         }
+        // wrong, get the movies for that cast
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetCastById(int id)
+        public async Task<IActionResult> GetMoviesByCastId(int id)
         {
-            var responseModel = await _movieService.GetCastById(id);
+            var responseModel = await _movieService.GetMoviesByCastId(id);
             if (responseModel == null)
             {
                 // return 404

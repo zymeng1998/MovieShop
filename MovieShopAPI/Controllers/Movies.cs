@@ -34,9 +34,11 @@ namespace Movies.Controller
         }
         [HttpGet]
         [Route("genre/{genreId}")]
-        public async Task<IActionResult> GetMoviesByGenreId(int genreId)
+
+        // need to rewrite, use server side pagenation [FromQuery]
+        public async Task<IActionResult> GetMoviesByGenreId(int genreId, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            var movies = await _movieService.GetMoviesByGenreId(genreId);
+            var movies = await _movieService.GetMoviesByGenreId(genreId, pageSize, pageIndex);
             // json data and http status code
             if (!movies.Any())
             {

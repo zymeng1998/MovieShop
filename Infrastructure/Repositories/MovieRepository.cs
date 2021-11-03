@@ -71,9 +71,10 @@ namespace Infrastructure.Repositories
             return movies;
         }
 
-        public async Task<IEnumerable<Movie>> GetMoviesByGenreId(int id)
+        public async Task<IEnumerable<Movie>> GetMoviesByGenreId(int id, int pageSize, int pageIndex)
         {
-            var movieIds = await _dbContext.MovieGenres.Where(g => g.GenreId == id).Select(m => m.MovieId).ToListAsync();
+            var movieIds = await _dbContext.MovieGenres.Where(g => g.GenreId == id)
+                .Select(m => m.MovieId).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToListAsync();
             var movies = new List<Movie>();
             foreach (int Id in movieIds)
             {
@@ -92,6 +93,17 @@ namespace Infrastructure.Repositories
         {
             var cast = await _dbContext.Cast.FirstOrDefaultAsync(c => c.Id == id);
             return cast;
+        }
+
+        public async Task<IEnumerable<Movie>> GetMoviesByCastId(int id)
+        {
+            var movieIds = await _dbContext.MovieCasts.Where(mc => mc.CastId == id).Select(mc => mc.MovieId).ToListAsync();
+            var movies = new List<Movie>();
+            foreach (var Id in movieIds)
+            {
+                movies.Add(await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == Id));
+            }
+            return movies;
         }
     }
 }

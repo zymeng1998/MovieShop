@@ -91,7 +91,8 @@ namespace Infrastructure.Services
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
             return movieCards;
         }
-        public async Task<List<MovieCardResponseModel>> GetMovieCardsForHomePage() {
+        public async Task<List<MovieCardResponseModel>> GetMovieCardsForHomePage()
+        {
             var movies = await _movieRepository.GetAll();
             var moviesDs = movies.Take(45);
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(moviesDs);
@@ -105,9 +106,9 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
-        public async Task<IEnumerable<MovieCardResponseModel>> GetMoviesByGenreId(int id)
+        public async Task<IEnumerable<MovieCardResponseModel>> GetMoviesByGenreId(int id, int pageSize, int pageIndex)
         {
-            var movies = await _movieRepository.GetMoviesByGenreId(id);
+            var movies = await _movieRepository.GetMoviesByGenreId(id, pageSize, pageIndex);
             var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
             return movieCards;
         }
@@ -116,10 +117,11 @@ namespace Infrastructure.Services
         {
             var reviews = await _movieRepository.GetMovieReviews(id);
             var movie = await _movieRepository.GetMovieById(id);
-            List <MovieReviewResponseModel> lst = new List<MovieReviewResponseModel>();
+            List<MovieReviewResponseModel> lst = new List<MovieReviewResponseModel>();
             foreach (var review in reviews)
             {
-                lst.Add(new MovieReviewResponseModel {
+                lst.Add(new MovieReviewResponseModel
+                {
                     MovieId = id,
                     Name = movie.Title,
                     Rating = review.Rating,
@@ -145,10 +147,11 @@ namespace Infrastructure.Services
             return lst;
         }
 
-        public async Task<Cast> GetCastById(int id)
+        public async Task<IEnumerable<MovieCardResponseModel>> GetMoviesByCastId(int id)
         {
-            var cast = await _movieRepository.GetCastById(id);
-            return cast;
+            var movies = await _movieRepository.GetMoviesByCastId(id);
+            var movieCards = MovieCardHelper.GetMovieCardsFromMovies(movies);
+            return movieCards;
         }
     }
 }
