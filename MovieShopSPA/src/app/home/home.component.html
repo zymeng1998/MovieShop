@@ -1,0 +1,21 @@
+{{myPageTitle}}
+<!-- use for each -->
+<!-- component for moviecard (partial view) -->
+<!-- child component(MovieCardComponent), HomeComponnent(parent) -->
+<!-- pass the data form parent to child -->
+<!-- @input -->
+<!-- how to send data/event from child to parent @output -->
+<!-- Directives -->
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-xl-2 col-sm-4 col-lg-3 col-6" *ngFor="let movieCard of movieCards">
+                <app-movie-card [movieCard] = 'movieCard'></app-movie-card>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!--  -->
+

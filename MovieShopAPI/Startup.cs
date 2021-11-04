@@ -61,6 +61,11 @@ namespace MovieShopAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShopAPI v1"));
             }
 
+            app.UseCors(builder => {
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader().AllowCredentials().AllowAnyMethod();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
