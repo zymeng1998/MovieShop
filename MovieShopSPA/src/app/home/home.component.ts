@@ -3,7 +3,7 @@ import { GenreService } from '../core/services/genre.service';
 import { MovieService } from '../core/services/movie.service';
 import { Movie } from '../shared/models/movie';
 import { MovieCard } from '../shared/models/moviecard';
-import { Genre } from '../shared/models/movie';
+import { Genre } from "../shared/models/Genre";
 
 @Component({
   selector: 'app-home',
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.movieService.getMovieDetails(2).subscribe(
       m => {
         this.movieTest = m;
-        console.table(this.movieTest);
+        console.log(this.movieTest);
       }
     );
     this.genreService.getAllGenres().subscribe(

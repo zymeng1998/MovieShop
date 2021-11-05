@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Genre } from '../../models/movie';
+import { Component, Input, OnInit } from '@angular/core';
+import { Genre } from "../../models/Genre";
 
 @Component({
   selector: 'app-genre',
@@ -7,7 +7,8 @@ import { Genre } from '../../models/movie';
   styleUrls: ['./genre.component.css']
 })
 export class GenreComponent implements OnInit {
-
+  @Input()
+  genre !: Genre;
   constructor() { }
 
   ngOnInit(): void {

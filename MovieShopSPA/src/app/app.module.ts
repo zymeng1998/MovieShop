@@ -9,6 +9,7 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
 import { MovieComponent } from './shared/components/movie/movie.component';
 import { GenreComponent } from './shared/components/genre/genre.component';
+import { MoviesModule } from './movies/movies.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { GenreComponent } from './shared/components/genre/genre.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MoviesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
