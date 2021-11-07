@@ -6,6 +6,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { CastDetailsComponent } from './cast-details/cast-details.component';
 import { TopratedComponent } from './toprated/toprated.component';
 import { MoviesComponent } from './movies.component';
+import { MovieCardComponent } from '../shared/components/movie-card/movie-card.component';
 
 
 @NgModule({
@@ -13,11 +14,12 @@ import { MoviesComponent } from './movies.component';
     MovieDetailsComponent,
     CastDetailsComponent,
     TopratedComponent,
-    MoviesComponent
+    MoviesComponent,
   ],
   imports: [
     CommonModule,
-    MoviesRoutingModule
+    MoviesRoutingModule,
+    MovieCardComponent
   ]
 })
 export class MoviesModule { }

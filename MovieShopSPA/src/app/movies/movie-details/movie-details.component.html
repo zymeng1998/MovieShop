@@ -1,1 +1,85 @@
-<p>movie-details works!</p>
+
+<div class="container">
+    <div class="row" [style.backgroundImage]="'url('+ movie.backdropUrl +')'">
+        <div class="col">
+            <img src="{{movie.posterUrl}}" width="300" />
+        </div>
+        <div class="col-6">
+            <h1 style="color:white">{{movie.title}}</h1>
+            <div style="font-size:smaller; color:lightgray">{{movie.tagline}}</div>
+            <br />
+            <div style="font-size:medium; color:lightgray">
+                <span class="badge badge-pill badge-dark" *ngFor="let genre of movie.genres">
+                    {{genre.name}}
+                </span>
+            </div>
+            <br />
+            <div>
+                <span class="badge badge-success" style="font-size:medium;">{{movie.rating}}</span>
+            </div>
+            <br />
+            <div style="font-size:medium; color:white">
+                {{movie.overview}}
+            </div>
+            <br />
+        </div>
+        <div class="col">
+            <br />
+            <br />
+            <ul class="list-group-buttons">
+                <li class="list-group-items">
+                    <button type="button" class="btn btn-outline-light btn-lg btn-block">REVIEW</button>
+
+                    <button type="button" class="btn btn-light btn-lg btn-block">BUY AT ${{movie.price}}</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-4">
+            <ul class="list-group-trailers">
+                <li>
+                    Release Date <span class="badge badge-pill badge-dark">{{movie.releaseDate}}</span>
+                </li>
+                <li>
+                    Run Time <span class="badge badge-pill badge-dark">{{movie.runTime}} m</span>
+                </li>
+                <li>
+                    Box Office <span class="badge badge-pill badge-dark">${{movie.revenue}}</span>
+                </li>
+                <li>
+                    Budget <span class="badge badge-pill badge-dark">${{movie.budget}}</span>
+                </li>
+            </ul>
+            <h3>TRAILERS</h3>
+            <ul class="list-group-trailers">
+            
+                <li class="list-group-trailers-items" *ngFor="let trailer of movie.trailers">
+                    <a href="{{trailer.trailerUrl}}">{{trailer.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <h3>CAST</h3>
+            <table class="table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Character</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cast of movie.casts">
+                        <td> <img class="showing" src="{{cast.profilePath}}" width="50" /></td>
+                        <td> {{cast.name}} </td> 
+                        <td> {{cast.character}} </td> 
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>
+
+

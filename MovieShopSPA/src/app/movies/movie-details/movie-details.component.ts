@@ -12,7 +12,14 @@ import { Movie } from 'src/app/shared/models/movie';
 export class MovieDetailsComponent implements OnInit {
   movie!: Movie;
   id: number = 0;
-  constructor(private activatedRoute: ActivatedRoute, private movieService: MovieService) { }
+  priceDisplay: string;
+  ratingDisplay: string;
+  releaseYear: string;
+  constructor(private activatedRoute: ActivatedRoute, private movieService: MovieService) {
+    this.priceDisplay = this.movie.price.toFixed(2).toString();
+    this.ratingDisplay = this.movie.rating.toFixed(2).toString();
+    this.releaseYear = new Date(this.movie.releaseDate).getFullYear().toString();
+  }
 
   ngOnInit(): void {
     // ActivatedRoute 

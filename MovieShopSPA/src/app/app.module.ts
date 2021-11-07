@@ -25,6 +25,9 @@ import { GenreComponent } from './shared/components/genre/genre.component';
     HttpClientModule,
 
   ],
+  exports: [
+    MovieCardComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

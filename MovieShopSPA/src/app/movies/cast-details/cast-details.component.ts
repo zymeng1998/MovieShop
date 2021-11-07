@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Cast } from 'src/app/shared/models/Cast';
 
 @Component({
   selector: 'app-cast-details',
