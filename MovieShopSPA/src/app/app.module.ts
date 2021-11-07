@@ -7,9 +7,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
-import { MovieComponent } from './shared/components/movie/movie.component';
+
 import { GenreComponent } from './shared/components/genre/genre.component';
-import { MoviesModule } from './movies/movies.module';
+
 
 @NgModule({
   declarations: [
@@ -17,14 +17,13 @@ import { MoviesModule } from './movies/movies.module';
     HomeComponent,
     HeaderComponent,
     MovieCardComponent,
-    MovieComponent,
     GenreComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MoviesModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
