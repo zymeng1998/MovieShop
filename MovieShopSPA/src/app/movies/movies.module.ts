@@ -19,7 +19,7 @@ import { MovieCardComponent } from '../shared/components/movie-card/movie-card.c
   imports: [
     CommonModule,
     MoviesRoutingModule,
-    MovieCardComponent
+    // MovieCardComponent
   ]
 })
 export class MoviesModule { }
