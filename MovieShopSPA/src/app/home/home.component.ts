@@ -13,7 +13,7 @@ import { Genre } from "../shared/models/Genre";
 export class HomeComponent implements OnInit {
   myPageTitle  = "Movie Shop SPA";
   movieCardsTopRevenue !: MovieCard[];
-  movieCardsTopRated !: MovieCard[];
+  // movieCardsTopRated !: MovieCard[];
   movieTest !: Movie;
   genreLst !: Genre[];
   constructor(private movieService: MovieService, private genreService: GenreService) { }
@@ -31,13 +31,13 @@ export class HomeComponent implements OnInit {
         console.table(this.movieCardsTopRevenue);
       }
     );
-    this.movieService.getTopRatedMovies().subscribe(
-      m => {
-        this.movieCardsTopRated = m;
-        console.log("top rated")
-        console.table(this.movieCardsTopRated);
-      }
-    );
+    // this.movieService.getTopRatedMovies().subscribe(
+    //   m => {
+    //     this.movieCardsTopRated = m;
+    //     console.log("top rated")
+    //     console.table(this.movieCardsTopRated);
+    //   }
+    // );
     this.movieService.getMovieDetails(2).subscribe(
       m => {
         this.movieTest = m;
