@@ -15,7 +15,12 @@
             </div>
             <br />
             <div>
-                <span class="badge badge-success" style="font-size:medium;">{{ratingDisplay}}</span>
+                <span class="badge" style="font-size:medium;"
+                [ngClass]="{'badge-success': movie.rating >= 8, 
+                'badge-warning': movie.rating < 8 && movie.rating >= 7, 
+                'badge-danger': movie.rating < 7}">
+                    {{ratingDisplay}}
+                </span>
             </div>
             <br />
             <div style="font-size:medium; color:white">

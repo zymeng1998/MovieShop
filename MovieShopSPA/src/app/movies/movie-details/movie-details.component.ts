@@ -33,7 +33,7 @@ export class MovieDetailsComponent implements OnInit {
             console.log(this.movie);
             this.priceDisplay = this.movie.price.toFixed(2).toString();
             this.ratingDisplay = this.movie.rating.toFixed(2).toString();
-            this.releaseYear = new Date(this.movie.releaseDate).getFullYear.toString();
+            this.releaseYear = new Date(this.movie.releaseDate).getFullYear().toString();
           }
         );
       }
