@@ -15,7 +15,7 @@
             </div>
             <br />
             <div>
-                <span class="badge badge-success" style="font-size:medium;">{{movie.rating}}</span>
+                <span class="badge badge-success" style="font-size:medium;">{{ratingDisplay}}</span>
             </div>
             <br />
             <div style="font-size:medium; color:white">
@@ -30,7 +30,7 @@
                 <li class="list-group-items">
                     <button type="button" class="btn btn-outline-light btn-lg btn-block">REVIEW</button>
 
-                    <button type="button" class="btn btn-light btn-lg btn-block">BUY AT ${{movie.price}}</button>
+                    <button type="button" class="btn btn-light btn-lg btn-block">BUY AT ${{priceDisplay}}</button>
                 </li>
             </ul>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-4">
             <ul class="list-group-trailers">
                 <li>
-                    Release Date <span class="badge badge-pill badge-dark">{{movie.releaseDate}}</span>
+                    Release Date <span class="badge badge-pill badge-dark">{{releaseYear}}</span>
                 </li>
                 <li>
                     Run Time <span class="badge badge-pill badge-dark">{{movie.runTime}} m</span>

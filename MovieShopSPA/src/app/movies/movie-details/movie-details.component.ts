@@ -12,13 +12,11 @@ import { Movie } from 'src/app/shared/models/movie';
 export class MovieDetailsComponent implements OnInit {
   movie!: Movie;
   id: number = 0;
-  priceDisplay: string;
-  ratingDisplay: string;
-  releaseYear: string;
+  priceDisplay: string = "wrong value";
+  ratingDisplay: string = "wrong value";
+  releaseYear: string = "wrong val";
   constructor(private activatedRoute: ActivatedRoute, private movieService: MovieService) {
-    this.priceDisplay = this.movie.price.toFixed(2).toString();
-    this.ratingDisplay = this.movie.rating.toFixed(2).toString();
-    this.releaseYear = new Date(this.movie.releaseDate).getFullYear().toString();
+
   }
 
   ngOnInit(): void {
@@ -33,10 +31,14 @@ export class MovieDetailsComponent implements OnInit {
           m => {
             this.movie = m;
             console.log(this.movie);
+            this.priceDisplay = this.movie.price.toFixed(2).toString();
+            this.ratingDisplay = this.movie.rating.toFixed(2).toString();
+            this.releaseYear = new Date(this.movie.releaseDate).getFullYear.toString();
           }
         );
       }
-    )
+    );
+
     console.log("inside movie details");
   }
 
