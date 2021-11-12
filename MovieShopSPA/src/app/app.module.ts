@@ -9,6 +9,10 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
 
 import { GenreComponent } from './shared/components/genre/genre.component';
+import { UserComponent } from './user/user.component';
+import { FavoritesComponent } from './user/favorites/favorites.component';
+import { PurchasesComponent } from './user/purchases/purchases.component';
+import { ReviewsComponent } from './user/reviews/reviews.component';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { GenreComponent } from './shared/components/genre/genre.component';
     HomeComponent,
     HeaderComponent,
     MovieCardComponent,
-    GenreComponent
+    GenreComponent,
+    UserComponent,
+    FavoritesComponent,
+    PurchasesComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,
