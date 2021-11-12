@@ -13,6 +13,8 @@ import { UserComponent } from './user/user.component';
 import { FavoritesComponent } from './user/favorites/favorites.component';
 import { PurchasesComponent } from './user/purchases/purchases.component';
 import { ReviewsComponent } from './user/reviews/reviews.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { ReviewsComponent } from './user/reviews/reviews.component';
     UserComponent,
     FavoritesComponent,
     PurchasesComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
