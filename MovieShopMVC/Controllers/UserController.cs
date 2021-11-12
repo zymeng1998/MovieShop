@@ -56,14 +56,16 @@ namespace MovieShopMVC.Controllers
             PurchaseResponseModel responseModel = await _userService.GetAllPurchasesForUser(uid);
             return View(responseModel);
         }
-
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Favorites() {
             // all movies favorited by that user
             var uid = _currentUserService.UserId;
             FavoriteResponseModel responseModel = await _userService.GetAllFavoritesForUser(uid);
             return View(responseModel);
         }
-
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Reviews() {
             // all reviews
             var uid = _currentUserService.UserId;
